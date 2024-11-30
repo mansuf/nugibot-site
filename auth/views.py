@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest
 from authlib.integrations.django_client import OAuth
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlencode
 
 oauth = OAuth()
 oauth.register("cognito")
@@ -13,16 +13,12 @@ oauth.register("cognito")
 
 def login(request: HttpRequest):
     redirect_uri = request.build_absolute_uri("/auth/login_redirect")
-    auth_request_uri = oauth.cognito.authorize_redirect(request, redirect_uri)
 
-    parsed = urlparse(auth_request_uri.url)
     if request.get_host() == "capstone-aws.mansuf-cf.my.id":
-        print(parsed.params)
-        parsed.params = parsed.params["redirect_uri"].replace("http", "https")
+        redirect_uri = redirect_uri.replace("http", "https")
 
-    print(parsed)
-
-    return HttpResponseRedirect(parsed.geturl())
+    auth_request_uri = oauth.cognito.authorize_redirect(request, redirect_uri)
+    return auth_request_uri
 
 
 def login_redirect(request: HttpRequest):
