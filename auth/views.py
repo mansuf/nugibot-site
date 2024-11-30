@@ -17,7 +17,8 @@ def login(request: HttpRequest):
 
     parsed = urlparse(auth_request_uri.url)
     if request.get_host() == "capstone-aws.mansuf-cf.my.id":
-        parsed["params"] = parsed.params["redirect_uri"].replace("http", "https")
+        print(parsed.params)
+        parsed.params = parsed.params["redirect_uri"].replace("http", "https")
 
     print(parsed)
 
