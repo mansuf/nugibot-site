@@ -8,8 +8,6 @@ oauth.register("cognito")
 
 # Create your views here.
 
-# https://auth.capstone-aws.mansuf-cf.my.id/logout?client_id=7pii1hgpfcmlfgvjnvi1srgfdu&response_type=code&scope=email+openid+phone&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Flogin_redirect
-
 
 def login(request: HttpRequest):
     redirect_uri = request.build_absolute_uri("/auth/login_redirect")
