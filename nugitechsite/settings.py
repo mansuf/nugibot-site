@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-nzwbsj86)g$5vh9ak9*%%1xa-8s!a!(u*r136vo*um*fzpft9u"
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,7 +55,7 @@ ROOT_URLCONF = "nugitechsite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -115,9 +116,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "static_build"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Authlib configurations
+
+AUTHLIB_OAUTH_CLIENTS = {
+    "cognito": {
+        "name": "oidc",
+        "authority": "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_9jnIxyVYj",
+        "client_id": "7pii1hgpfcmlfgvjnvi1srgfdu",
+        "client_secret": os.environ["AWS_COGNITO_CLIENT_SECRET"],
+        "server_metadata_url": "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_9jnIxyVYj/.well-known/openid-configuration",
+        "client_kwargs": {"scope": "email openid phone"},
+    }
+}

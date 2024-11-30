@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
 import os
 import sys
 
+with open("secrets/aws-cognito-client-secret.txt", "r") as o:
+    os.environ.setdefault("AWS_COGNITO_CLIENT_SECRET", o.read())
+
+with open("secrets/secret-key.txt", "r") as o:
+    os.environ.setdefault("SECRET_KEY", o.read())
 
 def main():
     """Run administrative tasks."""
