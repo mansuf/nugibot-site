@@ -18,6 +18,8 @@ def login(request: HttpRequest):
     if request.get_host() == "capstone-aws.mansuf-cf.my.id":
         auth_request_uri = auth_request_uri.url.replace("http://", "https://")
 
+    return auth_request_uri
+
 
 def login_redirect(request: HttpRequest):
     token = oauth.cognito.authorize_access_token(request)
