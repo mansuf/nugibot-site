@@ -18,6 +18,8 @@ def login(request: HttpRequest):
     if request.get_host() == "capstone-aws.mansuf-cf.my.id":
         auth_request_uri.Location = auth_request_uri.url.replace("http://", "https://")
 
+    print(auth_request_uri)
+
     return auth_request_uri
 
 
