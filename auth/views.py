@@ -12,6 +12,10 @@ oauth.register("cognito")
 
 
 def login(request: HttpRequest):
+    if request.get_host() == "capstone-aws.mansuf-cf.my.id":
+        # Force HTTPS
+        request.scheme = "https"
+
     redirect_uri = request.build_absolute_uri("/auth/login_redirect")
     return oauth.cognito.authorize_redirect(request, redirect_uri)
 
@@ -23,6 +27,10 @@ def login_redirect(request: HttpRequest):
 
 
 def logout(request: HttpRequest):
+    if request.get_host() == "capstone-aws.mansuf-cf.my.id":
+        # Force HTTPS
+        request.scheme = "https"
+
     base_url = "https://auth.capstone-aws.mansuf-cf.my.id/logout?"
     query_params = urlencode(
         {
