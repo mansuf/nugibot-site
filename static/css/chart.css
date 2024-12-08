@@ -1,0 +1,60 @@
+html, body {
+        /* width: 100%;
+        height: 100%; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #a4fff1;
+    font-family: Arial, sans-serif; /* Tambahkan font default untuk konsistensi */
+}
+
+.sidebar { width: 235px; 
+
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 100%; */
+    /* height: 100%; */
+    padding: 0;
+}
+
+.chart-wrapper {
+    /* width: 100%; */
+    /* max-width: 1200px; Batas maksimal untuk tata letak responsif */
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05); /* Transparansi untuk estetika */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.chart {
+    padding: 2rem;
+    border: 1px solid #ffffff;
+    border-radius: 1rem;
+    background: #251c35; /* Warna latar yang elegan */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+    flex: 1 1 300px; /* Membuat chart fleksibel dengan ukuran minimal */
+    /* max-width: 4000px; Batasi ukuran maksimal chart */
+    text-align: center; /* Pusatkan konten di dalam chart */
+    border-left: #00c6a9;
+}
+
+.chart canvas {
+    max-width: 100%;
+    height: auto;
+}
+h1 {
+    margin: 0; /* Hapus margin di atas dan bawah */
+    padding: 0; /* Hapus padding di atas dan bawah */
+    /* text-align: center; Sesuaikan teks agar rata tengah (opsional) */
+    font-family: 'Edu AU VIC WA NT Arrows', cursive;
+    font-size: 2.5rem; /* Sesuaikan ukuran font */
+    /* color: #ffffff; Sesuaikan warna teks */
+}

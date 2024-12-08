@@ -1,0 +1,27 @@
+.form-horizontal .form-group {
+    display: flex;
+    align-items: center;
+}
+
+/* .form-horizontal .form-group + .form-group {
+    flex-basis: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+} */
+
+.form-horizontal .form-group:last-child {
+    flex-basis: auto;
+    max-width: auto;
+}
+
+
+
+/* Hide arrows in input[type=number] for WebKit browsers (Chrome, Safari) */
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+

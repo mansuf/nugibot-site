@@ -103,7 +103,7 @@
     <!-- end header section -->
 
   <!-- sidebar section -->
-  <section class="community layout-padding">
+  <section class="community layout-padding" style="min-height: 100vh;">
     <div class="container">
       <div class="row" style="margin-right: 0px">
         <div class="col-md-4 col-lg-3 mb-2" style="left: -20px">
@@ -239,45 +239,27 @@
             </div>
           </nav>
         </div>     <!-- end section -->
-        <div class="col-md-8 col-lg-6 chatbot-community px-2 py-4">
-          <div class="container main-content p-2">
-            <div class="card chatbox rounded-top">
-              <div class="card-header d-flex align-items-center text-white rounded-top" style="background: var(--primary1);">
-                <img class="profile-bot" src="https://st3.depositphotos.com/8950810/17657/v/450/depositphotos_176577870-stock-illustration-cute-smiling-funny-robot-chat.jpg" alt="">
-                <h5 class="mb-0">NuGiBot Chat</h5>
-                <button class="btn btn-light btn-sm" style="display: none;" id="clearChat"></button>
+
+        <div class="col-md-8 col-sm-9 col-lg-9">
+          <h1>Medical History</h1>
+          <form action="" class="form-horizontal">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="history-count">Number of Disease Histories :</label>
+                <input type="number" class="form-control" id="history-count" max="4" placeholder="input number here">
               </div>
-              <div class="card-body chat-body overflow-auto">
-                <!-- Chat messages will appear here -->
-              </div>
-              <div class="card-footer p-0 py-1">
-                <div class="input-form">
-                  <button class="galery-btn" id="attachBtn">
-                    <icon class="material-symbols-outlined">image</icon>
-                  </button>
-                  <input type="file" id="fileInput" accept="image/*" style="display: none;" />              
-                  <input type="text" class="input-message" id="chatInput" placeholder="Type your message..." />
-                  <button class="send-btn" id="sendMessage">
-                    <icon class="material-symbols-outlined">send</icon>
-                  </button>
-                </div>
+              <div class="col-md-12">
+                <div class="row" id="history-row"></div>
+                <div class="btn btn-primary mb-4" id="submit-button" style="background-color: #00c6a9; border-color: #00c6a9; display: none; width: 20%;" onclick="submitHistory()">Submit</div>
               </div>
             </div>
+          </form>
+          <div class="row p-2" id="recommendation-boxes">
+            
           </div>
         </div>
+        
 
-        <div class="col-lg-3 col-md-0" id="recent">
-          <nav class="nav flex-column sidebar left">
-            <div class="nugibot-btn">Today</div>
-            <div class="container recent-chat active" style="text-align: center;">
-              New Chat
-            </div>
-            <div class="nugibot-btn">Recent Chat</div>
-            <div class="container recent-chat" style="text-align: center;">
-              Chat about healty
-            </div>  
-          </nav>
-        </div>
       </div>
     </div>
    </section>
@@ -335,131 +317,88 @@
   <script src="/static/js/custom.js"></script>
 
   <script>
-    function toggleComments() {
-      const arrowComment = document.getElementById("arrow-comment");
-      const comments = document.getElementById("comments");
-      if (comments.style.display === "none") {
-        comments.style.display = "block";
-        arrowComment.innerHTML = 'arrow_drop_down';
-      } else {
-        comments.style.display = "none";
-        arrowComment.innerHTML = 'arrow_right';
+    document.getElementById('history-count').addEventListener('input', function () {
+      const maxCount = 4;
+      const count = parseInt(this.value) || 0;
+      const formContainer = document.getElementById('history-row');
+
+      formContainer.innerHTML = '';
+
+      if (count > 0 && count <= maxCount) {
+        for (let i = 1; i <= count; i++) {
+          const formGroup = document.createElement('div');
+          formGroup.className = 'col-md-6 mb-2';
+          
+          const label = document.createElement('label');
+          label.className = 'form-label';
+          label.innerText = `Medical History ${i}`;
+
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.name = `history-${i}`;
+          input.className = 'form-control';
+          input.placeholder = `Input Medical History ${i}`;
+
+          formGroup.appendChild(label);
+          formGroup.appendChild(input);
+
+          formContainer.appendChild(formGroup);
+        }
       }
-    }
 
-    function toggleMenu() {
-      const menu = document.getElementById("sidebar");
-      menu.classList.toggle("expanded");
-    }
-    document.addEventListener("DOMContentLoaded", function() {
-    var loveIcons = [
-        { icon: document.getElementById("love-icon-1"), count: document.getElementById("like-count-1"), showLikesText: false },
-        { icon: document.getElementById("love-icon-1.1"), count: document.getElementById("like-count-1.1"), showLikesText: true },
-        { icon: document.getElementById("love-icon-1.2"), count: document.getElementById("like-count-1.2"), showLikesText: true },
-        { icon: document.getElementById("love-icon-2"), count: document.getElementById("like-count-2"), showLikesText: false },
-        { icon: document.getElementById("love-icon-2.1"), count: document.getElementById("like-count-2.1"), showLikesText: true },
-        { icon: document.getElementById("love-icon-2.2"), count: document.getElementById("like-count-2.2"), showLikesText: true }
-    ];
-    document.getElementById('attachBtn').addEventListener('click', function() {
-  document.getElementById('fileInput').click();
-});
-
-    loveIcons.forEach(function(item) {
-        var liked = false;
-
-        item.icon.addEventListener("click", function() {
-            var likes = parseInt(item.count.textContent);
-
-            if (!liked) {
-                likes++;
-                if (item.showLikesText) {
-                    item.count.textContent = likes + " likes";
-                } else {
-                    item.count.textContent = likes;
-                }
-                item.icon.classList.add("loved"); 
-            } else {
-                likes--;
-                if (item.showLikesText) {
-                    item.count.textContent = likes + " likes";
-                } else {
-                    item.count.textContent = likes;
-                }
-                item.icon.classList.remove("loved");
-            }
-
-            liked = !liked; 
-            item.icon.style.outline = "none";
-        });
+      const submitButton = document.getElementById('submit-button');
+      submitButton.style.display = count > 0 && count <= maxCount ? 'block' : 'none';
     });
-});
 
-  // ============ CHATBOT ============ //
+    function submitHistory() {
+      const historyInputs = document.querySelectorAll('#history-row input');
+      const recommendationContainer = document.getElementById('recommendation-boxes');
+      const borderClasses = ['primary', 'secondary', 'tertiary', 'quaternary'];
 
-  const chatBody = document.querySelector('.chat-body');
-  const chatInput = document.getElementById('chatInput');
-  const sendMessageBtn = document.getElementById('sendMessage');
-  const clearChatBtn = document.getElementById('clearChat');
+      recommendationContainer.innerHTML = '';
 
-  function botResponse(userMessage) {
-    const botReplies = {
-      hello: "Hi there! How can I assist you today?",
-      help: "Sure! Let me know what you need help with.",
-      default: "jadi gini lee.."
-    };
-    return botReplies[userMessage.toLowerCase()] || botReplies.default;
-  }
+      historyInputs.forEach((input, index) => {
+        const value = input.value.trim();
+        if (value) {
+          const box = document.createElement('div');
+          box.className = `col-lg-12 history-reccomend-box border-box border-left-${borderClasses[index % borderClasses.length]}`;
 
-  function getCurrentTime() {
-    const now = new Date();
-    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
+          const header = document.createElement('div');
+          header.className = 'hr-header mx-2';
+          header.innerText = `Recommendations for Medical History ${value}`;
 
-  function addMessage(message, sender) {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('chat-message', sender);
+          const body = document.createElement('div');
+          body.className = 'hr-body row';
 
-    const bubble = document.createElement('div');
-    bubble.classList.add('bubble');
-    bubble.textContent = message;
+          const activityCol = document.createElement('div');
+          activityCol.className = `col-md-6`;
+          const activityHeader = document.createElement('h5');
+          activityHeader.innerText = 'Activity Recommendation';
+          const activityContent = document.createElement('p');
+          activityContent.innerText = `Suggested activities for ${value}...`;
+          activityCol.appendChild(activityHeader);
+          activityCol.appendChild(activityContent);
 
-    const timestamp = document.createElement('span');
-    timestamp.classList.add('timestamp');
-    timestamp.textContent = getCurrentTime();
+          const dietCol = document.createElement('div');
+          dietCol.className = `col-md-6`;
+          const dietHeader = document.createElement('h5');
+          dietHeader.innerText = 'Diet Recommendation';
+          const dietContent = document.createElement('p');
+          dietContent.innerText = `Suggested diet for ${value}...`;
+          dietCol.appendChild(dietHeader);
+          dietCol.appendChild(dietContent);
 
-    bubble.appendChild(timestamp);
-    messageDiv.appendChild(bubble);
+          body.appendChild(activityCol);
+          body.appendChild(dietCol);
 
-    if (sender === 'bot') {
-      const botImage = document.createElement('img');
-      botImage.src = 'https://st3.depositphotos.com/8950810/17657/v/450/depositphotos_176577870-stock-illustration-cute-smiling-funny-robot-chat.jpg';
-      messageDiv.insertBefore(botImage, bubble);
+          box.appendChild(header);
+          box.appendChild(body);
+
+          recommendationContainer.appendChild(box);
+        }
+      });
     }
 
-    chatBody.appendChild(messageDiv);
-    chatBody.scrollTop = chatBody.scrollHeight;
-  }
-
-  sendMessageBtn.addEventListener('click', () => {
-    const userMessage = chatInput.value.trim();
-    if (userMessage) {
-      addMessage(userMessage, 'user');
-      chatInput.value = ''; 
-      setTimeout(() => {
-        addMessage(botResponse(userMessage), 'bot');
-      }, 500);
-    }
-  });
-
-  clearChatBtn.addEventListener('click', () => {
-    chatBody.innerHTML = '';
-  });
-
-  chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      sendMessageBtn.click();
-    }
-  });
 
 
 
