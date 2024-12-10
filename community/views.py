@@ -10,15 +10,9 @@ from .models import CommunityPost, CommunityPostComment
 def vegan(request: HttpRequest):
     context = get_userinfo_context(request)
 
-    return render(request, "vegan.html", context)
-
-
-def diet(request: HttpRequest):
-    context = get_userinfo_context(request)
-
     posts = []
 
-    for post in CommunityPost.objects.all():
+    for post in CommunityPost.objects.filter(parent="vegan"):
         post.comments = CommunityPostComment.objects.filter(post=post)
         post.total_comments = len(post.comments) | 0
 
@@ -27,4 +21,21 @@ def diet(request: HttpRequest):
     context["posts"] = posts
     context["comments"] = CommunityPost
 
-    return render(request, "diet.html", context)
+    return render(request, "community_posts.html", context)
+
+
+def diet(request: HttpRequest):
+    context = get_userinfo_context(request)
+
+    posts = []
+
+    for post in CommunityPost.objects.filter(parent="diet"):
+        post.comments = CommunityPostComment.objects.filter(post=post)
+        post.total_comments = len(post.comments) | 0
+
+        posts.append(post)
+
+    context["posts"] = posts
+    context["comments"] = CommunityPost
+
+    return render(request, "community_posts.html", context)

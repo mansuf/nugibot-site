@@ -2,3 +2,5 @@ django
 authlib
 requests
 django-storages[s3]
+mysqlclient
+Pillow
