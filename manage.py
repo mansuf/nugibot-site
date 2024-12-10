@@ -3,12 +3,26 @@
 
 import os
 import sys
+import json
 
 with open("secrets/aws-cognito-client-secret.txt", "r") as o:
     os.environ.setdefault("AWS_COGNITO_CLIENT_SECRET", o.read())
 
 with open("secrets/secret-key.txt", "r") as o:
     os.environ.setdefault("SECRET_KEY", o.read())
+
+with open("secrets/mysql-database.json") as o:
+    data = json.loads(o.read())
+
+    for key, value in data.items():
+        os.environ.setdefault(key, value)
+
+with open("secrets/storage-s3.json", "r") as o:
+    data = json.loads(o.read())
+
+    for key, value in data.items():
+        os.environ.setdefault(key, value)
+
 
 def main():
     """Run administrative tasks."""

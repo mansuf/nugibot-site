@@ -12,7 +12,7 @@ oauth.register("cognito")
 def login(request: HttpRequest):
     redirect_uri = request.build_absolute_uri("/auth/login_redirect")
 
-    if request.get_host() == "capstone-aws.mansuf-cf.my.id":
+    if request.get_host() == "www.nugibot.my.id":
         redirect_uri = redirect_uri.replace("http", "https")
 
     auth_request_uri = oauth.cognito.authorize_redirect(request, redirect_uri)
@@ -26,12 +26,12 @@ def login_redirect(request: HttpRequest):
 
 
 def logout(request: HttpRequest):
-    if request.get_host() == "capstone-aws.mansuf-cf.my.id":
+    if request.get_host() == "www.nugibot.my.id":
         scheme = "https"
     else:
         scheme = "http"
 
-    base_url = "https://auth.capstone-aws.mansuf-cf.my.id/logout?"
+    base_url = "https://auth.nugibot.my.id/logout?"
     query_params = urlencode(
         {
             "client_id": oauth.cognito.client_id,

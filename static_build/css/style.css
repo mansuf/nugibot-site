@@ -8,8 +8,8 @@ body {
 /* Menambahkan font lokal ke CSS */
 @font-face {
   font-family: 'mawan'; /* Berikan nama untuk font Anda */
-  src: url('/static/fonts/font.ttf') format('woff2'), /* Format WOFF2 */
-       url('/static/fonts/font.ttf') format('woff'); /* Format WOFF */
+  src: url('fonts/font.ttf') format('woff2'), /* Format WOFF2 */
+       url('fonts/font.ttf') format('woff'); /* Format WOFF */
   font-weight: normal;
   font-style: normal;
 }
@@ -308,7 +308,7 @@ a:focus {
 }
 
 .slider_section {
-  background-image: url('/static/images/t1.jpg'); 
+  /* background-image: url('/static/images/t1.jpg');  */
   background-size: cover; 
   background-position: left;
   -webkit-box-flex: 1;
@@ -1437,4 +1437,41 @@ textarea:focus {
 
 .quote_btn-container .login-button:hover .fa-user {
   color: #000; /* Ikon juga berubah menjadi hitam saat di-hover */
+}
+
+.history-reccomend-box {
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hr-header {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+
+.hr-body {
+  text-align: justify;
+}
+
+.border-box {
+  border: 1px solid #00c6a9;
+}
+
+.border-left-primary {
+  border-left: 5px solid #00c6a9;
+}
+
+.border-left-secondary {
+  border-left: 5px solid #0026ff;
+}
+
+.border-left-tertiary {
+  border-left: 5px solid #ff00ff;
+}
+
+.border-left-quaternary {
+  border-left: 5px solid #ff0000;
 }

@@ -1,18 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpRequest
+from utils.userinfo import get_userinfo_context
 
 # Create your views here.
-
-
-def get_userinfo_context(request: HttpRequest):
-    userinfo = request.session.get("user", None)
-    context = {"user": userinfo}
-
-    if userinfo:
-        context["username"] = userinfo["cognito:username"]
-        context["email"] = userinfo["email"]
-
-    return context
 
 
 def home(request: HttpRequest):
@@ -81,12 +71,6 @@ def chatbot(request: HttpRequest):
     return render(request, "chatbot.html", context)
 
 
-def diet(request: HttpRequest):
-    context = get_userinfo_context(request)
-
-    return render(request, "diet.html", context)
-
-
 def history(request: HttpRequest):
     context = get_userinfo_context(request)
 
@@ -103,9 +87,3 @@ def track(request: HttpRequest):
     context = get_userinfo_context(request)
 
     return render(request, "track.html", context)
-
-
-def vegan(request: HttpRequest):
-    context = get_userinfo_context(request)
-
-    return render(request, "vegan.html", context)

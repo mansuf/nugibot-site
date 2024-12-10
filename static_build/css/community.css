@@ -7,19 +7,24 @@
     --bg-nav: #ddfff7;
     --pasif: #ffffff;
 }
+.toggle-icon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
 
 body {
     background: linear-gradient(to top, #a4fff1, var(--white));
 }
 
-icon {
+.icon {
     cursor: pointer;
 }
 
 .community {
     margin-top: 40px;
     margin-bottom: 40px;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .main-community {
@@ -251,6 +256,17 @@ border-radius: 50%;
     color: #ffffff;
     cursor: pointer;
 }
+.love-icon {
+    cursor: pointer;
+    transition: transform 0.6s ease;
+  }
+  
+  .love-icon:hover {
+    content: "hand";
+    font-family: 'Material Symbols Outlined'; /* Pastikan font ini tersedia */
+    transform: scale(1.2);
+  }
+  
 
 .recent-chat.active:hover {
     background-color: var(--white);
@@ -334,4 +350,13 @@ border-radius: 50%;
     #recent {
         display: none;
     }
+}
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+textarea {
+    resize: none;
 }

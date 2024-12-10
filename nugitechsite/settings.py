@@ -26,7 +26,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["capstone-aws.mansuf-cf.my.id", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["www.nugibot.my.id", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "community",
 ]
 
 MIDDLEWARE = [
@@ -76,8 +77,14 @@ WSGI_APPLICATION = "nugitechsite.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ["DB_NAME"],
+        "HOST": os.environ["DB_HOST"],
+        "PORT": os.environ["DB_PORT"],
+        "USER": os.environ["DB_USERNAME"],
+        "PASSWORD": os.environ["DB_PASSWORD"],
+        "CONN_MAX_AGE": 0,
+        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
 
@@ -125,6 +132,18 @@ STATIC_ROOT = BASE_DIR / "static_build"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "bucket_name": os.environ["AWS_STORAGE_BUCKET_NAME"],
+            "region_name": os.environ["AWS_S3_REGION_NAME"],
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 # Authlib configurations
 

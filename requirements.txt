@@ -1,3 +1,4 @@
 django
 authlib
 requests
+django-storages[s3]

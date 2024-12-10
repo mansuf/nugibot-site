@@ -12,11 +12,9 @@ from .views import (
     article3,
     chart,
     chatbot,
-    diet,
     history,
     calculator,
     track,
-    vegan,
 )
 
 urlpatterns = [
@@ -31,9 +29,7 @@ urlpatterns = [
     path("article3", article3),
     path("chart", chart),
     path("chatbot", chatbot),
-    path("diet", diet),
     path("history", history),
     path("calculator", calculator),
     path("track", track),
-    path("vegan", vegan),
 ]

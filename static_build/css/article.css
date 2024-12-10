@@ -1,0 +1,75 @@
+
+main {
+    padding: 20px;
+}
+
+.article-card {
+    background-color: white;
+    width: 70%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+
+    padding: 20px;
+}
+
+.article-card h2 {
+    color: #28a745;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+.d-flex {
+    display: flex;
+}
+
+.article-card {
+    flex: 3;
+    margin-right: 20px;
+}
+
+.sidebar-card {
+    flex: 1;
+}
+
+.card {
+    background-color: white;
+    border-radius: 5px;
+    width: 30%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.related-article {
+    margin-bottom: 15px;
+}
+
+.related-article h4 {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.related-article p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.read-more-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    /* float: right; */
+}
+
