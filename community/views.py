@@ -18,6 +18,7 @@ def vegan(request: HttpRequest):
 
         posts.append(post)
 
+    context["parent"] = "Vegan"
     context["posts"] = posts
     context["comments"] = CommunityPost
 
@@ -35,6 +36,7 @@ def diet(request: HttpRequest):
 
         posts.append(post)
 
+    context["parent"] = "Diet"
     context["posts"] = posts
     context["comments"] = CommunityPost
 

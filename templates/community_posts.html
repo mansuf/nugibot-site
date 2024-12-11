@@ -45,7 +45,10 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-
+    {% csrf_token %}
+    <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    </script>
 </head>
 
 <body class="sub_page">
@@ -237,7 +240,7 @@
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close</button>
                                                             <button type="button" class="btn btn-primary"
-                                                                onclick="submitPost()"
+                                                                onclick="submitPost('{{ parent }}')"
                                                                 style="background-color: #00c6a9;">Submit</button>
                                                         </div>
                                                     </div>
@@ -259,11 +262,13 @@
                                     </div>
                                     <icon class="material-symbols-outlined">more_vert</icon>
                                 </div>
+                                {% if post.content_image %}
                                 <div class="container">
                                     <div class="image-content">
                                         <img src="{{ post.content_image.url }}" alt="">
                                     </div>
                                 </div>
+                                {% endif %}
                                 <div class="container">
                                     <p>
                                         {{ post.content_text }}
@@ -406,13 +411,29 @@
         <script src="/static/js/custom.js"></script>
 
         <script>
-            function submitPost() {
+            async function submitPost(parent) {
                 const caption = document.getElementById('postCaption').value;
                 const image = document.getElementById('postImage').files[0];
-                console.log('Caption:', caption);
-                console.log('Image:', image);
+                let formData = new FormData();
 
-                $('#createPostModal').modal('hide');
+                if (image) {
+                    formData.append("image", image);
+                }
+                formData.append("text", caption);
+                formData.append("parent", parent);
+
+                let response = await fetch("/api/community/create", {
+                    method: "POST",
+                    body: formData,
+                    headers: {"X-CSRFToken": csrftoken}
+                });
+
+                if (!response.ok) {
+                    alert(`Error: ${(await response.json()).error}`);
+                    return;
+                }
+
+                window.location.reload();
             }
         </script>
 
