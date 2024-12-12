@@ -4,3 +4,4 @@ requests
 django-storages[s3]
 mysqlclient
 Pillow
+ollama
