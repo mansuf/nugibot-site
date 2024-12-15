@@ -26,7 +26,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["www.nugibot.my.id", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["www.nugibot.my.id", "127.0.0.1", "localhost", "172.31.20.142"]
 
 CSRF_TRUSTED_ORIGINS = ["https://www.nugibot.my.id"]
 
