@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from utils.userinfo import get_userinfo_context
 
@@ -18,9 +18,7 @@ def about(request: HttpRequest):
 
 
 def community(request: HttpRequest):
-    context = get_userinfo_context(request)
-
-    return render(request, "community.html", context)
+    return redirect("/community/vegan")
 
 
 def contact(request: HttpRequest):

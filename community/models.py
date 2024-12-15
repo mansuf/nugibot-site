@@ -4,7 +4,7 @@ from django.db import models
 
 
 def get_community_image_post_directory(instance, filename: str):
-    return f"community_posts/{instance.id}/{filename}"
+    return f"community_posts/{instance.author}/{filename}"
 
 
 class CommunityPost(models.Model):
@@ -22,3 +22,4 @@ class CommunityPostComment(models.Model):
     author = models.CharField(max_length=255)
     content_text = models.TextField()
     likes = models.BigIntegerField()
+    created_at = models.DateTimeField(auto_now=True)

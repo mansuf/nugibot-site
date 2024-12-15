@@ -331,22 +331,25 @@
                                     </div>
                                     {% endfor %}
                                     <div class="container mt-3">
-                                        <form id="comment-form" class="d-flex">
+                                        {% if user is None %}
+                                            <p>You must logged in to comment</p>
+                                        {% else %}
                                             <div class="form-group flex-grow-1">
                                                 <label for="comment" style="font-size: .9rem; font-weight: 500;">Add a
                                                     Comment</label>
                                                 <div class="d-flex align-items-center">
                                                     <textarea style="border-radius: 20px;"
-                                                        class="form-control flex-grow-1" id="comment" rows="1"
+                                                        class="form-control flex-grow-1" name="content_text" id="comment-post-{{ post.id }}" rows="1"
                                                         placeholder="Write your comment here..."
                                                         oninput="adjustTextareaHeight(this)"
-                                                        style="resize: none;"></textarea>
-                                                    <button type="submit" class="btn btn-submit ml-2">
+                                                        style="resize: none;">
+                                                    </textarea>
+                                                    <button onclick="javascript:submitComment('{{ post.id }}')" class="btn btn-submit ml-2">
                                                         <icon class="material-symbols-outlined">send</icon>
                                                     </button>
                                                 </div>
                                             </div>
-                                        </form>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -435,56 +438,31 @@
 
                 window.location.reload();
             }
+
+            async function submitComment(post_id) {
+                let comment = document.getElementById(`comment-post-${post_id}`);
+                let formData = new FormData();
+
+                formData.append("post-id", post_id)
+                formData.append("content_text", comment.value);
+
+                let response = await fetch("/api/community/comment/create", {
+                    method: "POST",
+                    body: formData,
+                    headers: {"X-CSRFToken": csrftoken}
+                });
+
+                if (!response.ok) {
+                    alert(`Error: ${(await response.json()).error}`);
+                    return;
+                }
+
+                window.location.reload();
+            }
         </script>
 
 
         <script>
-            document.getElementById('comment-form').addEventListener('submit', function (event) {
-                event.preventDefault(); // Mencegah pengiriman formulir default
-
-                var commentInput = document.getElementById('comment');
-                var commentText = commentInput.value.trim(); // Menghapus spasi tambahan
-
-                if (commentText !== '') {
-                    // Mengambil elemen tempat komentar ditambahkan
-                    var commentsContainer = document.getElementById('comments');
-
-                    // Membuat elemen baru untuk komentar
-                    var newComment = document.createElement('div');
-                    newComment.className = 'container mt-3';
-
-                    // Isi HTML untuk komentar baru
-                    newComment.innerHTML = `
-      <div class="d-flex flex-row align-items-start justify-content-between">
-        <div class="d-flex flex-row align-items-start w-100">
-          <div class="circle-picture-comment">
-            <span class="material-symbols-outlined" style="font-size: 24px;">person</span>
-          </div>
-          <div class="flex-column">
-            <h5 class="mx-2" style="font-size: .9rem;">Your Name</h5>
-            <p class="mx-2" style="font-size: .9rem;">${commentText}</p>
-            <div class="d-flex flex-row align-items-center">
-              <span class="material-symbols-outlined love-icon" style="cursor: pointer;">favorite</span>
-              <p class="mx-2" style="font-size: .9rem;">0 likes</p>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex flex-column justify-content-end align-items-end">
-          <p style="font-size: .8rem; color: #777;">Just now</p>
-          <span class="material-symbols-outlined" style="font-size: 20px; cursor: pointer;">more_vert</span>
-        </div>
-      </div>
-    `;
-
-                    // Menambahkan elemen komentar baru sebelum form input
-                    var commentForm = document.getElementById('comment-form');
-                    commentsContainer.insertBefore(newComment, commentForm);
-
-                    // Mengosongkan input komentar
-                    commentInput.value = '';
-                }
-            });
-
 
             function adjustTextareaHeight(textarea) {
                 textarea.style.height = 'auto';
