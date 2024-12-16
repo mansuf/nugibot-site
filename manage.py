@@ -23,6 +23,11 @@ with open("secrets/storage-s3.json", "r") as o:
     for key, value in data.items():
         os.environ.setdefault(key, value)
 
+with open("secrets/bedrock.json", "r") as o:
+    data = json.loads(o.read())
+
+    for key, value in data.items():
+        os.environ.setdefault(key, value)
 
 def main():
     """Run administrative tasks."""

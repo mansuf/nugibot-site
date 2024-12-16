@@ -41,7 +41,13 @@
   <link href="/static/css/responsive.css" rel="stylesheet" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    {% csrf_token %}
+    <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    </script>
 
+    <script src="/static/js/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 </head>
 
@@ -60,10 +66,10 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
+            </button>
                   <a class="nav-link" href="/">
                     <i class="fa fa-home"></i>
                     <span class="nav-text"></span>
@@ -397,16 +403,35 @@
 
         chatBody.appendChild(messageDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
+
+        return bubble;
       }
 
-      sendMessageBtn.addEventListener('click', () => {
+      sendMessageBtn.addEventListener('click', async () => {
         const userMessage = chatInput.value.trim();
         if (userMessage) {
           addMessage(userMessage, 'user');
           chatInput.value = '';
-          setTimeout(() => {
-            addMessage(botResponse(userMessage), 'bot');
-          }, 500);
+
+          let formData = new FormData();
+          formData.append("prompt", userMessage);
+
+          let response = await fetch("/api/chatbot/get_response", {
+            method: "POST",
+            body: formData,
+            headers: {"X-CSRFToken": csrftoken}
+          });
+
+          let element = addMessage("", 'bot');
+
+          const stream = response.body.pipeThrough(new TextDecoderStream());
+
+          let data = "";
+
+          for await (let chunk of stream) {
+            data += chunk;
+            element.innerHTML = DOMPurify.sanitize(marked.parse(data));
+          }
         }
       });
 
