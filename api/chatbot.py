@@ -18,6 +18,7 @@ client = boto3.client(
     aws_secret_access_key=aws_secret_access_key,
     region_name="us-east-1",
 )
+print(client)
 
 
 def make_formatted_prompt(text):
@@ -47,7 +48,6 @@ def iter_response_chatbot(text):
             if "generation" in chunk:
                 yield chunk["generation"].encode()
     except (ClientError, Exception) as e:
-        print(e)
         traceback.print_exception(type(e), e, e.__traceback__)
         yield b"errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
 
