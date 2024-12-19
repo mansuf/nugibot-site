@@ -156,12 +156,18 @@
                             </ul>
                         </div>
                     </nav>
-                    <div class="quote_btn-container">
-                        <a href="/login" class="login-button">
+                    {% if user is None %}
+                    <a href="/auth/login" class="login-button">
+                        <i class="fa fa-user" style="color: #00c6a9;" aria-hidden="true"></i>
+                        <span>Login</span>
+                    </a>
+                    {% else %}
+                        <div class="login-button">
                             <i class="fa fa-user" style="color: #00c6a9;" aria-hidden="true"></i>
-                            <span>Login</span>
-                        </a>
-                    </div>
+                            <span>{{ username }}</span>
+                            <a href="/auth/logout" class="login-button"> | Logout</a>
+                        </div>
+                    {% endif %}
                 </div>
         </header>
 
