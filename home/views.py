@@ -1,8 +1,17 @@
+from dataclasses import dataclass
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from utils.userinfo import get_userinfo_context
 
 # Create your views here.
+
+
+@dataclass
+class RecentChat:
+    question: str
+    message: str
+    datetime: str
+    session_id: str
 
 
 def home(request: HttpRequest):
@@ -64,7 +73,29 @@ def chart(request: HttpRequest):
 
 
 def chatbot(request: HttpRequest):
+    from api.chatbot.dynamodb import get_user_sessions, query_all_chat_history_formatted
+
     context = get_userinfo_context(request)
+    params = request.GET
+    sessions = get_user_sessions(context["user"]["sub"])
+
+    session_id = params.get(
+        "session_id", 0 if not sessions else int(sessions[0]["sessionId"])
+    )
+    context["session_id"] = session_id
+
+    recent_chats = []
+
+    for chat in query_all_chat_history_formatted(context["user"]["sub"]):
+        recent_chats.append(
+            RecentChat(
+                chat["conversation"]["user"]["message"],
+                chat["conversation"]["assistant"]["message"],
+                chat["conversation"]["user"]["createdAt"],
+                chat["sessionId"],
+            )
+        )
+    context["recent_chats"] = recent_chats
 
     return render(request, "chatbot.html", context)
 

@@ -1,10 +1,16 @@
+import uuid
 from django.db import models
 
 # Create your models here.
 
 
 def get_community_image_post_directory(instance, filename: str):
-    return f"community_posts/{instance.author}/{filename}"
+    # Get the file extension
+    ext = filename.split(".")[-1]
+    # Generate UUID for filename
+    unique_filename = f"{uuid.uuid4()}.{ext}"
+    # Return path with UUID filename
+    return f"community_posts/{uuid.uuid4()}/{unique_filename}"
 
 
 class CommunityPost(models.Model):

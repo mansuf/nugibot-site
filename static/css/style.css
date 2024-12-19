@@ -8,8 +8,8 @@ body {
 /* Menambahkan font lokal ke CSS */
 @font-face {
   font-family: 'mawan'; /* Berikan nama untuk font Anda */
-  src: url('fonts/font.ttf') format('woff2'), /* Format WOFF2 */
-       url('fonts/font.ttf') format('woff'); /* Format WOFF */
+  src: url('/static/fonts/font.ttf') format('woff2'), /* Format WOFF2 */
+       url('/static/fonts/font.ttf') format('woff'); /* Format WOFF */
   font-weight: normal;
   font-style: normal;
 }
@@ -308,7 +308,7 @@ a:focus {
 }
 
 .slider_section {
-  /* background-image: url('/static/images/t1.jpg');  */
+  background-image: url('/static/images/t1.jpg'); 
   background-size: cover; 
   background-position: left;
   -webkit-box-flex: 1;
@@ -1079,6 +1079,7 @@ a:focus {
 }
 .info_links {
   text-align: center;
+  text-decoration: none;
 }
 
 .info_links_menu {
@@ -1094,7 +1095,7 @@ a:focus {
 }
 
 .info_links_menu a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 
@@ -1112,7 +1113,7 @@ a:focus {
 }
 
 .info_links_menu a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .info_section .info_links .info_links_menu a:not(:nth-last-child(1)) {

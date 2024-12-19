@@ -89,17 +89,24 @@
     <!-- responsive style -->
     <link href="/static/css/responsive.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="/static/css/landing.css">
+
 </head>
 
 <body>
 
     <div class="hero_area">
         <!-- header section strats -->
-        <header class="header_section">
+        <header class="header_section" style="position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      backdrop-filter: blur(10px);">
             <div class="header_bottom">
                 <div class="container-fluid d-flex justify-content-between align-items-center">
                     <a href="/" class="logo-nugibot">
-                        <h2 style="font-family: 'caveat',cursive; font-weight:bold; padding-right: 50px;">NuGiBot</h2>
+                        <h2>NuGiBot</h2>
                     </a>
                     <nav class="navbar navbar-expand-lg custom_nav-container"
                         style=" height: 60px; width: 50%; margin: 0 auto; display: flex; border-radius: 40px; background-color: #00c6a9;">
@@ -139,7 +146,7 @@
                                         <i class="fa fa-comments"></i>
                                         <span class="nav-text"></span>
                                     </a>
-                                </li/>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/contact">
                                         <i class="fa fa-envelope"></i>
@@ -150,57 +157,95 @@
                         </div>
                     </nav>
                     <div class="quote_btn-container">
-                        {% if user is None %}
-                            <a href="/auth/login" class="login-button">
-                                <i class="fa fa-user" style="color: #00c6a9;" aria-hidden="true"></i>
-                                <span>Login</span>
-                            </a>
-                        {% else %}
-                            <div class="login-button">
-                                <i class="fa fa-user" style="color: #00c6a9;" aria-hidden="true"></i>
-                                <span>{{ username }}</span>
-                                <a href="/auth/logout" class="login-button"> | Logout</a>
-                            </div>
-                        {% endif %}
+                        <a href="/login" class="login-button">
+                            <i class="fa fa-user" style="color: #00c6a9;" aria-hidden="true"></i>
+                            <span>Login</span>
+                        </a>
                     </div>
                 </div>
-            </div>
+        </header>
 
+        <!-- end header section -->
 
-            <!-- end header section -->
-
-            <!-- slider section -->
-            <section class="slider_section ">
-                <!-- <div class="dot_design">
+        <!-- slider section -->
+        <section class="slider_section ">
+            <!-- <div class="dot_design">
         <img src="/static/images/dots.png" alt="">
       </div> -->
-                <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="container ">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="detail-box">
-                                            <h1>
-                                                <span class="red-text">NuGi</span>Bot <br>
-                                            </h1>
-                                            <p>
-                                                Simplifying Nutrition, One Chat at a Time
-                                            </p>
-                                            <a href="">
-                                                Chat With Bot
-                                            </a>
-                                        </div>
+            <div id="customCarousel1" class="carousel slide" data-ride="carousel" style="background: url('images/landing-bg-2.png');
+        background-size: cover;
+        background-position:  center;
+        background-repeat: no-repeat;">
+                >
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container ">
+                            <div class="row py-4 my-4">
+                                <div class="col-md-8 py-4">
+                                    <h1 class="font-weight-bold">WELCOME TO <span
+                                            style="font-family: cursive;">NUGIBOT</span></h1>
+                                    <p>Simplifying Nutrition, One Chat at a Time</p>
+                                    <!-- <div class="detail-box">
+                    <a href="">
+                      Chat With Bot
+                    </a>
+                  </div> -->
+                                </div>
+
+
+                                <!-- <div class="col-md-6">
+                  <div class="detail-box">
+                     <h1>
+                      <span class="red-text">NuGi</span>Bot <br>
+                    </h1>
+                    <p>
+                      Simplifying Nutrition, One Chat at a Time
+                    </p>
+                    <a href="">
+                      Chat With Bot
+                    </a> -->
+                                <!-- </div>
+                </div> -->
+                                <!-- <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="/static/images/slider-img.jpg" alt="" style="opacity: 0;">
+                  </div>
+                </div>  -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3 d-flex justify-content-center">
+                                    <div class="l-card">
+                                        <h2 class="font-weight-bold">Why NuGiBot?</h2>
+                                        <p>Nugibot is the right choice because it provides personalized nutrition and
+                                            nutrition advice, is easily accessible anytime, and is powered by the latest
+                                            AI technology that ensures accurate and up-to-date recommendations. With
+                                            Nugibot, you can monitor your nutrition intake, get healthy eating tips, and
+                                            answer nutrition questions quickly and efficiently. This makes Nugibot the
+                                            perfect partner in maintaining your health </p>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="img-box">
-                                            <img src="/static/images/slider-img.jpg" alt="">
-                                        </div>
+                                </div>
+                                <div class="col-md-3 mb-3 d-flex justify-content-center">
+                                    <div class="m-card">
+                                        <img src="/static/images/access.png" alt="">
+                                        <h3 class="font-weight-bold">Accessibility</h3>
+                                        <p>Nugibot is designed to be easily accessible to everyone, anytime and
+                                            anywhere. <br> Nugibot ensures that you always have access to the nutrition
+                                            information you need </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3 d-flex justify-content-center">
+                                    <div class="m-card">
+                                        <img src="/static/images/efficiency.png" alt="">
+                                        <h3 class="font-weight-bold">Efficiency</h3>
+                                        <p>Nugibot works quickly and efficiently, Using advanced AI technology, Nugibot
+                                            can process your nutrition data and provide precise and relevant advice</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-            </section>
+                    </div>
+
+        </section>
     </div>
     <!-- end slider section -->
 
@@ -235,43 +280,31 @@
 
     <!-- end about section -->
 
-    <!-- why section -->
-    <section class="slider_section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 detail-box">
-                    <div class="heading_container">
-                        <h2 style="padding-left: 180px; margin-bottom: 20px;">Why <span>NuGiBot</span></h2>
-                        <div>
-                            <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span>
-                                Improved physical
-                                health</h6>
-                            <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span>
-                                Better mental
-                                health</h6>
-                            <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span>
-                                Increased
-                                longevity</h6>
-                            <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span>
-                                Weight management
-                            </h6>
-                            <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span>
-                                Improved
-                                self-confidence</h6>
-                            <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span>
-                                Reduced stress
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="img-box">
-                        <img src="/static/images/why.png" alt="" style="display: inline-block;">
+    <!-- why section
+  <section class="slider_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 detail-box">
+                <div class="heading_container">
+                    <h2 style="padding-left: 180px; margin-bottom: 20px;">Why <span>NuGiBot</span></h2>
+                    <div>
+                        <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span> Improved physical health</h6>
+                        <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span> Better mental health</h6>
+                        <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span> Increased longevity</h6>
+                        <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span> Weight management</h6>
+                        <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span> Improved self-confidence</h6>
+                        <h6 style="padding-left: 100px; margin-bottom: 10px;"><span style="color: red;">✔</span> Reduced stress</h6>
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="img-box">
+                    <img src="/static/images/why.png" alt="" style="display: inline-block;">
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section> -->
 
 
     <!-- why end section -->
@@ -301,8 +334,8 @@
                             </h4>
                             <p>
                                 Find a nutritious Diet that fits your lifestyle and food preferences. Take charge of
-                                your daily habits
-                                with one of the many ongoing Diets including Clean Eating and High Protein
+                                your daily habits with one of the many ongoing Diets including Clean Eating and High
+                                Protein
                             </p>
                         </div>
                     </div>
@@ -323,8 +356,8 @@
                             </h4>
                             <p>
                                 Follow a 7-21 day Meal Plan and get four pre-planned recipes a day. Depending on your
-                                health goals,
-                                there are many Meal Plans to choose from including Keto Burn and Vegan for a week.
+                                health goals, there are many Meal Plans to choose from including Keto Burn and Vegan for
+                                a week.
                             </p>
                         </div>
                     </div>
@@ -345,8 +378,7 @@
                             </h4>
                             <p>
                                 Track your activities and what you eat with the help of our food-, exercise- and water
-                                trackers to
-                                maintain a balanced everyday life.
+                                trackers to maintain a balanced everyday life.
                             </p>
                         </div>
                     </div>
@@ -362,8 +394,7 @@
                             </h4>
                             <p>
                                 To help you reach your goals and customize your health journey you can add your favorite
-                                meals, food
-                                items, recipes and exercises to your Favorites.
+                                meals, food items, recipes and exercises to your Favorites.
                             </p>
                         </div>
                     </div>
